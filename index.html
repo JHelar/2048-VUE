@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>2048 in VUE</title>
+  <script src="https://unpkg.com/vue"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app">
+    <section class="grid">
+        <grid-cell :cell="cell" :key="cell.key" v-for="cell in displayGrid"></grid-cell>
+    </section>
+
+    <div class="buttons">
+      <button @click="newGame">New Game</button>
+    </div>
+  </main>
+  <script type="text/x-template" id="grid-cell">
+    <div class="cell">
+      <span class="num" :style="[textSize, position]" :class="{'fresh':cell.fresh}" :data-tile="cell.num">
+        {{ cell.num > 0 ? cell.num : '' }}
+      </span>
+    </div>
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
+
+

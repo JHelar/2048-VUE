@@ -1,0 +1,179 @@
+:root {
+    --cellWidth: 80px;
+    --cellHeight: 80px;
+    --tileColor: rgba(238, 228, 218, 0.35);
+    --tileBorder: #776e65;
+
+    --lightGray: #eee4da;
+    --darkGray: #776e65;
+
+    --lightOrange: #f2b179;
+    --mediumOrange: #f59563;
+    --darkOrange: #f67c5f;
+    --red: #f65e3b;
+
+    --lightYellow: #edcf72;
+    --mediumYellow: #edcc61;
+    
+    --backgroundYellow: #faf8ef;
+
+    --brown: #8f7a66;
+}
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--backgroundYellow);
+    font-family: 'Roboto', sans-serif;
+}
+
+body * {
+    box-sizing: border-box;
+}
+
+.buttons {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+button {
+    border: 0;
+    padding: 1rem;
+    color: white;
+    background: var(--brown);
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.grid {
+    position: relative;
+    display: block;
+    width: calc(var(--cellWidth) * 4 + 10px);
+    height: calc(var(--cellHeight) * 4 + 10px);
+    
+}
+
+.grid::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--tileBorder);
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    z-index: 1;
+    
+    border-radius: 5px;
+}
+
+.grid::after {
+    content: '';
+    width: calc(var(--cellWidth) - 10px);
+    height: calc(var(--cellHeight) - 10px);
+    background: var(--tileColor);
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 1;
+
+    box-shadow: 0 0 0 0 var(--tileColor),
+        var(--cellWidth) 0 0 0 var(--tileColor),
+        calc(var(--cellWidth) * 2) 0 0 0 var(--tileColor),
+        calc(var(--cellWidth) * 3) 0 0 0 var(--tileColor),
+        0 var(--cellHeight) 0 0 var(--tileColor),
+
+        var(--cellWidth) var(--cellHeight) 0 0 var(--tileColor),
+        calc(var(--cellWidth) * 2) var(--cellHeight) 0 0 var(--tileColor),
+        calc(var(--cellWidth) * 3) var(--cellHeight) 0 0 var(--tileColor),
+        0 calc(var(--cellHeight) * 2) 0 0 var(--tileColor),
+
+        var(--cellWidth) calc(var(--cellHeight) * 2) 0 0 var(--tileColor),
+        calc(var(--cellWidth) * 2) calc(var(--cellHeight) * 2) 0 0 var(--tileColor),
+        calc(var(--cellWidth) * 3) calc(var(--cellHeight) * 2) 0 0 var(--tileColor),
+        0 calc(var(--cellHeight) * 3) 0 0 var(--tileColor),
+
+        var(--cellWidth) calc(var(--cellHeight) * 3) 0 0 var(--tileColor),
+        calc(var(--cellWidth) * 2) calc(var(--cellHeight) * 3) 0 0 var(--tileColor),
+        calc(var(--cellWidth) * 3) calc(var(--cellHeight) * 3) 0 0 var(--tileColor);
+}
+
+.cell {
+    position: absolute;
+    width: var(--cellWidth);
+    height: var(--cellHeight);
+    z-index: 2;
+    
+
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.cell > .num {
+    opacity: 1;
+    color: black;
+    display: block;
+    width: calc(var(--cellWidth) - 10px);
+    height: calc(var(--cellHeight) - 10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: transform .2s;
+    z-index: 3;
+}
+.num[data-tile="2"],
+.num[data-tile="4"]{
+    background: var(--lightGray);
+    color: var(--darkGray);
+}
+.num[data-tile="8"]{
+    background: var(--lightOrange);
+    color: white;
+}
+.num[data-tile="16"] {
+    background: var(--mediumOrange);
+    color: white;
+}
+.num[data-tile="32"] {
+    background: var(--darkOrange);
+    color: white;
+}
+.num[data-tile="64"] {
+    background: var(--red);
+    color: white;
+}
+.num[data-tile="128"] {
+    background: var(--lightYellow);
+    color: white;
+}
+.num[data-tile="256"] {
+    background: var(--mediumYellow);
+    color: white;
+}
+
+
+.cell > .num.fresh {
+    color: black;
+    transition: none;
+    animation: fresh .2s;
+    z-index: 2;
+}
+
+@keyframes fresh {
+    0% {
+        color: black;
+    }
+    50% {
+        color: yellowgreen;
+    }
+    100% {
+        color: black;
+    }
+}
