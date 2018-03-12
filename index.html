@@ -2,7 +2,8 @@
 <html>
 <head>
   <title>2048 in VUE</title>
-  <script src="https://unpkg.com/vue"></script>
+  <script src="node_modules/vue/dist/vue.min.js"></script>
+  <script src="node_modules/vuex/dist/vuex.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -13,7 +14,9 @@
     </section>
 
     <div class="buttons">
+      <button @click="undo" v-if="canUndo">Undo</button>
       <button @click="newGame">New Game</button>
+      <button @click="redo" v-if="canRedo">Redo</button>
     </div>
   </main>
   <script type="text/x-template" id="grid-cell">
@@ -23,7 +26,7 @@
       </span>
     </div>
   </script>
-  <script src="app.js"></script>
+  <script src="bundle.js"></script>
 </body>
 </html>
 
